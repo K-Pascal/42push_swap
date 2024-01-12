@@ -6,7 +6,7 @@
 /*   By: pnguyen- <pnguyen-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 09:57:55 by pnguyen-          #+#    #+#             */
-/*   Updated: 2023/12/14 14:51:08 by pnguyen-         ###   ########.fr       */
+/*   Updated: 2023/12/14 17:16:15 by pnguyen-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,24 @@ void	goto_minvalue(t_list **stack_a)
 		while (index++ < size_a)
 			set_command(stack_a, NULL, "rra", 3);
 	}
+}
+
+int	findzero(t_list *stack)
+{
+	int		index;
+
+	index = 0;
+	while (stack)
+	{
+		if (!(*(int *)stack->content & 1))
+			return (index);
+		index++;
+		stack = stack->next;
+	}
+	return (-1);
+}
+
+void	bitshiftvalue(void *content)
+{
+	*(int *)content >>= 1;
 }
