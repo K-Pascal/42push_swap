@@ -52,5 +52,6 @@ bonus: all
 
 .PHONY: norm
 norm:
-	norminette -R CheckForbiddenSourceHeader $(SRC) $(LIBFTPATH)/*.c
-	norminette -R CheckDefine $(INCLUDEDIR)/ $(LIBFTPATH)/libft.h
+	make -C $(LIBFTPATH) norm
+	norminette -R CheckForbiddenSourceHeader $(SRC)
+	norminette -R CheckDefine $(INCLUDEDIR)/

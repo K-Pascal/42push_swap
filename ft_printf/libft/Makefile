@@ -49,8 +49,3 @@ norm:
 
 cleantest: fclean
 	rm -f $(TESTNAME)
-
-.PHONY: so
-so:
-	$(CC) -nostartfiles -fPIC $(CFLAGS) $(SOURCES) $(SOURCES_BONUS)
-	gcc -nostartfiles -shared -o libft.so $(OBJECTS) $(OBJECTS_BONUS)
