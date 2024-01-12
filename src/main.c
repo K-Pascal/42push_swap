@@ -90,86 +90,38 @@ int	isascending(t_list *lst)
 	return (1);
 }
 
-t_list	*dothing(char **argv, int start, int size)
+int	dothing(char **argv, int size)
 {
-	t_list	*lst_a;
-	int		*nb;
-	int		i;
+	t_list	*stack_a;
 
-	lst_a = NULL;
-	i = start;
-	if (!checkargs(argv, start, size))
-		return (NULL);
-	while (i < size)
-	{
-		nb = malloc(sizeof(int));
-		*nb = ft_atoi(argv[i]);
-		if (!nb)
-		{
-			ft_lstclear(&lst_a, &free);
-			return (NULL);
-		}
-		ft_lstadd_back(&lst_a, ft_lstnew(nb));
-		i++;
-	}
-	int	imin;
-	int	lst_size = ft_lstsize(lst_a);
-	t_list	*lst_b = NULL;
-	int	half = lst_size / 2;
-	while (lst_size > 0)
-	{
-		if (*(int *)lst_a->content > *(int *)lst_a->next->content)
-			set_command(&lst_a, &lst_b, "sa");
-		else
-		{
-			imin = findmin(lst_a);
-			if (imin <= half)
-			{
-				while (imin--)
-					set_command(&lst_a, &lst_b, "ra");
-			}
-			else
-			{
-				while (imin++ < lst_size)
-					set_command(&lst_a, &lst_b, "rra");
-			}
-			set_command(&lst_a, &lst_b, "pb");
-			lst_size--;
-		}
-		if (isascending(lst_a))
-			break ;
-	}
-	while (lst_b)
-		set_command(&lst_a, &lst_b, "pa");
-	ft_lstclear(&lst_a, &free);
-	ft_lstclear(&lst_b, &free);
-	return (lst_a);
+	stack_a = checkargs(argv, size);
+	pre_sort(stack_a, size);
+	if (!stack_a)
+		return (0);
+	my_radix_sort(&stack_a, size);
+	ft_lstclear(&stack_a, &free);
+	return (1);
 }
 
 int	main(int argc, char **argv)
 {
-	int		i;
-
 	if (argc < 2)
-	{
-		ft_putstr_fd("Error\n", 2);
 		return (1);
-	}
-	i = argc != 2;
-	if (!i)
+	if (argc == 2)
 	{
 		argv = ft_split(argv[1], ' ');
 		if (argv == NULL)
 		{
-			ft_putstr_fd("Error\n", 2);
+			ft_putendl_fd("Error", 2);
 			return (1);
 		}
 		argc = 0;
 		while (argv[argc] != NULL)
 			argc++;
-	}
-	dothing(argv, i, argc);
-	if (!i)
+		dothing(argv, argc);
 		my_free_all(argv);
+	}
+	else
+		dothing(&argv[1], argc - 1);
 	return (0);
 }

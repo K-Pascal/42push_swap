@@ -6,7 +6,7 @@
 /*   By: pnguyen- <pnguyen-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 16:11:02 by pnguyen-          #+#    #+#             */
-/*   Updated: 2023/12/11 11:15:53 by pnguyen-         ###   ########.fr       */
+/*   Updated: 2023/12/13 09:35:19 by pnguyen-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,26 +21,28 @@ static int	checkmaxint(char delim[], size_t lenmax, char str[]);
 static int	isvalidint(char str[]);
 static int	*checkduplicate(t_list *stack, char arg[]);
 
-t_list	*checkargs(char **argv, int start, int size)
+t_list	*checkargs(char **argv, int size)
 {
 	t_list	*stack;
 	int		*nbr;
+	int		i;
 
 	stack = NULL;
-	while (start < size)
+	i = 0;
+	while (i < size)
 	{
-		if (!isvalidnumber(argv[start]) || !isvalidint(argv[start]))
+		if (!isvalidnumber(argv[i]) || !isvalidint(argv[i]))
 		{
 			ft_putendl_fd("Error", 2);
 			ft_lstclear(&stack, &free);
 			return (NULL);
 		}
-		nbr = checkduplicate(stack, argv[start]);
+		nbr = checkduplicate(stack, argv[i]);
 		if (!nbr)
 			return (NULL);
 		if (!addto_stack(&stack, nbr))
 			return (NULL);
-		start++;
+		i++;
 	}
 	return (stack);
 }
