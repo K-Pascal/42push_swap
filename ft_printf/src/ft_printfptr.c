@@ -6,7 +6,7 @@
 /*   By: pnguyen- <pnguyen-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 11:29:05 by pnguyen-          #+#    #+#             */
-/*   Updated: 2023/11/18 17:42:47 by pnguyen-         ###   ########.fr       */
+/*   Updated: 2023/12/05 13:54:31 by pnguyen-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include <stdarg.h>
 #include <sys/types.h>
 
-#include "libft/libft.h"
 #include "ft_printf.h"
 #include "ft_printfparser.h"
 #include "ft_printfutils.h"

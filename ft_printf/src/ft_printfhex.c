@@ -6,7 +6,7 @@
 /*   By: pnguyen- <pnguyen-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 15:43:41 by pnguyen-          #+#    #+#             */
-/*   Updated: 2023/11/19 18:41:29 by pnguyen-         ###   ########.fr       */
+/*   Updated: 2023/12/05 13:59:47 by pnguyen-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ ssize_t	ft_printfhexn(t_uinfo info, t_flags flags, int symbol, int uppercase)
 			padding_char(info.width - (info.len + symbol), ' ');
 		ft_printfhexprefix(info.nbr, flags, uppercase);
 		if (flags & ZERO_PADDING && !(flags & LEFT_JUSTIFY))
-			padding_char(info.width - info.len, '0');
+			padding_char(info.width - (info.len + symbol), '0');
 		ft_putunbr(info.nbr, 16, uppercase);
 		if (flags & LEFT_JUSTIFY)
 			padding_char(info.width - (info.len + symbol), ' ');

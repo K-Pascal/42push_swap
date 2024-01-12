@@ -6,14 +6,13 @@
 /*   By: pnguyen- <pnguyen-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 11:42:44 by pnguyen-          #+#    #+#             */
-/*   Updated: 2023/11/19 18:07:53 by pnguyen-         ###   ########.fr       */
+/*   Updated: 2023/12/05 13:57:53 by pnguyen-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <sys/types.h>
-
-#include "libft/libft.h"
+#include "../libft/libft.h"
 
 void	padding_char(ssize_t len, char c)
 {
@@ -31,18 +30,18 @@ void	ft_putunbr(unsigned long nbr, unsigned int base, int uppercase)
 		ft_putchar_fd("0123456789abcdef"[nbr % base], 1);
 }
 
-void	ft_putnbr(int nbr)
+void	ft_putabsnbr(int nbr)
 {
 	if (nbr < 0)
 	{
 		if (nbr <= -10)
-			ft_putnbr(-(nbr / 10));
+			ft_putabsnbr(-(nbr / 10));
 		ft_putchar_fd(-(nbr % 10) + '0', 1);
 	}
 	else
 	{
 		if (nbr >= 10)
-			ft_putnbr(nbr / 10);
+			ft_putabsnbr(nbr / 10);
 		ft_putchar_fd(nbr % 10 + '0', 1);
 	}
 }

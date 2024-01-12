@@ -1,4 +1,5 @@
-FILES := main.c
+FILES := main.c \
+		 actions.c
 
 SRCDIR := ./src
 SRC := $(addprefix $(SRCDIR)/,$(FILES))
@@ -11,39 +12,47 @@ INCDIR := ./inc
 CC := cc
 CFLAGS := -Wall -Wextra -Werror -I $(INCDIR) -I .
 GDB := -g3
+export GDB
 
 NAME := push_swap
 
-LIBFTDIR := ./ft_printf
-NAMELIB := ftprintf
-LIBFT := $(LIBFTDIR)/$(addsuffix .a,$(addprefix lib,$(NAMELIB)))
+LIBFT_DIR := libft
+LIBFTPRINTF_DIR := ft_printf
 
-.PHONY: all clean fclean re
+NAMELIBFT := ft
+NAMELIBFTPRINTF := ftprintf
+
+.PHONY: all
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(OBJ)
-	$(CC) $(CFLAGS) $(GDB) $(OBJ) -L $(LIBFTDIR) -l $(NAMELIB) -o $@
+$(NAME): $(LIBFT_DIR)/lib$(NAMELIBFT).a $(LIBFTPRINTF_DIR)/lib$(NAMELIBFTPRINTF).a $(OBJ)
+	$(CC) $(CFLAGS) $(GDB) $(OBJ) -L $(LIBFT_DIR) -L $(LIBFTPRINTF_DIR) -l $(NAMELIBFTPRINTF) -l $(NAMELIBFT) -o $@
 
-$(LIBFT):
-	make -C $(LIBFTDIR) bonus
+$(LIBFT_DIR)/lib$(NAMELIBFT).a:
+	make -C $(LIBFT_DIR) bonus
 
-clean:
-	rm -rf $(OBJ)
-	make -C $(LIBFTDIR) clean
-
-fclean: clean
-	rm -rf $(NAME)
-	make -C $(LIBFTDIR) fclean
-
-re : fclean all
-
+$(LIBFTPRINTF_DIR)/lib$(NAMELIBFTPRINTF).a:
+	make -C $(LIBFTPRINTF_DIR) bonus
 
 $(BUILDDIR)/%.o: $(SRCDIR)/%.c Makefile
 	@mkdir -p $(BUILDDIR)
 	$(CC) $(CFLAGS) $(GDB) -c $< -o $@
 
-.PHONY: norm
+.PHONY: clean fclean re norm
+clean:
+	rm -rf $(OBJ)
+	make -C $(LIBFT_DIR) clean
+	make -C $(LIBFTPRINTF_DIR) clean
+
+fclean: clean
+	rm -rf $(NAME)
+	make -C $(LIBFT_DIR) fclean
+	make -C $(LIBFTPRINTF_DIR) fclean
+
+re : fclean all
+
 norm:
-	make -C $(LIBFTDIR) norm
+	make -C $(LIBFT_DIR) norm
+	make -C $(LIBFTPRINTF_DIR) norm
 	norminette -R CheckForbiddenSourceHeader $(SRC)
 	norminette -R CheckDefine $(INCDIR)/

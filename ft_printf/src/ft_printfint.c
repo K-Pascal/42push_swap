@@ -6,7 +6,7 @@
 /*   By: pnguyen- <pnguyen-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 12:19:40 by pnguyen-          #+#    #+#             */
-/*   Updated: 2023/11/19 18:41:49 by pnguyen-         ###   ########.fr       */
+/*   Updated: 2023/12/05 13:58:26 by pnguyen-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static ssize_t	ft_printfintpp(t_info info, int symbol, t_flags flags)
 			padding_char(info.width - (info.precision + symbol), ' ');
 		ft_printfint_symbol(info.nbr, flags);
 		padding_char(info.precision - info.len, '0');
-		ft_putnbr(info.nbr);
+		ft_putabsnbr(info.nbr);
 		if (flags & LEFT_JUSTIFY)
 			padding_char(info.width - (info.precision + symbol), ' ');
 		len = info.width;
@@ -50,7 +50,7 @@ static ssize_t	ft_printfintpp(t_info info, int symbol, t_flags flags)
 	{
 		ft_printfint_symbol(info.nbr, flags);
 		padding_char(info.precision - info.len, '0');
-		ft_putnbr(info.nbr);
+		ft_putabsnbr(info.nbr);
 		len = info.precision + symbol;
 	}
 	return (len);
@@ -66,7 +66,7 @@ static ssize_t	ft_printfintnp(t_info info, int symbol, t_flags flags)
 			padding_char(info.width - (info.len + symbol), ' ');
 		ft_printfint_symbol(info.nbr, flags);
 		if (info.len > 0)
-			ft_putnbr(info.nbr);
+			ft_putabsnbr(info.nbr);
 		if (flags & LEFT_JUSTIFY)
 			padding_char(info.width - (info.len + symbol), ' ');
 		len = info.width;
@@ -75,7 +75,7 @@ static ssize_t	ft_printfintnp(t_info info, int symbol, t_flags flags)
 	{
 		ft_printfint_symbol(info.nbr, flags);
 		if (info.len > 0)
-			ft_putnbr(info.nbr);
+			ft_putabsnbr(info.nbr);
 		len = info.len + symbol;
 	}
 	return (len);
@@ -92,7 +92,7 @@ ssize_t	ft_printfintn(t_info info, int symbol, t_flags flags)
 		ft_printfint_symbol(info.nbr, flags);
 		if (flags & ZERO_PADDING && !(flags & LEFT_JUSTIFY))
 			padding_char(info.width - (info.len + symbol), '0');
-		ft_putnbr(info.nbr);
+		ft_putabsnbr(info.nbr);
 		if (flags & LEFT_JUSTIFY)
 			padding_char(info.width - (info.len + symbol), ' ');
 		len = info.width;
@@ -100,7 +100,7 @@ ssize_t	ft_printfintn(t_info info, int symbol, t_flags flags)
 	else
 	{
 		ft_printfint_symbol(info.nbr, flags);
-		ft_putnbr(info.nbr);
+		ft_putabsnbr(info.nbr);
 		len = info.len + symbol;
 	}
 	return (len);

@@ -6,66 +6,14 @@
 /*   By: pnguyen- <pnguyen-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 20:31:44 by pnguyen-          #+#    #+#             */
-/*   Updated: 2023/12/04 18:16:56 by pnguyen-         ###   ########.fr       */
+/*   Updated: 2023/12/05 14:24:26 by pnguyen-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf/include/ft_printf.h"
-#include "ft_printf/libft/libft.h"
+#include "libft/libft.h"
+#include "inc/actions.h"
 #include <stdlib.h>
-
-void	swap_elem(t_list **lst)
-{
-	t_list	*first;
-
-	if (*lst == NULL || (*lst)->next == NULL)
-		return ;
-	first = (*lst)->next;
-	(*lst)->next = first->next;
-	first->next = *lst;
-	*lst = first;
-}
-
-void	push_elem(t_list **lst_dst, t_list **lst_target)
-{
-	t_list	*elem;
-
-	if (*lst_target == NULL)
-		return ;
-	elem = *lst_target;
-	*lst_target = (*lst_target)->next;
-	ft_lstadd_front(lst_dst, elem);
-}
-
-void	rotate_elem(t_list **lst)
-{
-	t_list	*first;
-	t_list	*last;
-
-	if (*lst == NULL || (*lst)->next == NULL)
-		return ;
-	last = *lst;
-	first = last->next;
-	last->next = NULL;
-	ft_lstlast(first)->next = last;
-	*lst = first;
-}
-
-void	reverse_rotate_elem(t_list **lst)
-{
-	int	len;
-
-	len = ft_lstsize(*lst);
-	if (len <= 1)
-		return ;
-	while (--len)
-		rotate_elem(lst);
-}
-
-void	print_elem(void *content)
-{
-	ft_printf("%d\n", *(int *)content);
-}
 
 void	visualize(t_list *lst_a, t_list *lst_b)
 {
@@ -109,6 +57,7 @@ int	main(int argc, char **argv)
 	t_list	*elem;
 
 	i = 1;
+	if (argc == 2)
 	while (i < argc)
 	{
 		nb = malloc(sizeof(int));

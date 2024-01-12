@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printfutils.h                                   :+:      :+:    :+:   */
+/*   actions.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pnguyen- <pnguyen-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/15 11:43:33 by pnguyen-          #+#    #+#             */
-/*   Updated: 2023/12/05 13:57:31 by pnguyen-         ###   ########.fr       */
+/*   Created: 2023/12/05 13:41:54 by pnguyen-          #+#    #+#             */
+/*   Updated: 2023/12/05 14:14:38 by pnguyen-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTFUTILS_H
-# define FT_PRINTFUTILS_H
+#ifndef ACTIONS_H
+# define ACTIONS_H
 
-# include <sys/types.h>
+# include "libft/libft.h"
 
-# include "ft_printf.h"
-
-void	padding_char(ssize_t len, char c);
-void	ft_putunbr(unsigned long nbr, unsigned int base, int uppercase);
-int		get_numudigits(unsigned long nbr, int base);
-int		get_numdigits(int nbr, int base);
-void	ft_putabsnbr(int nbr);
+void	swap_elem(t_list **lst);
+void	push_elem(t_list **lst_dst, t_list **lst_target);
+void	rotate_elem(t_list **lst);
+void	reverse_rotate_elem(t_list **lst);
 
 #endif

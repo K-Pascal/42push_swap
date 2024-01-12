@@ -6,7 +6,7 @@
 /*   By: pnguyen- <pnguyen-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 20:29:21 by pnguyen-          #+#    #+#             */
-/*   Updated: 2023/11/29 19:08:41 by pnguyen-         ###   ########.fr       */
+/*   Updated: 2023/12/05 13:50:58 by pnguyen-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include <stddef.h>
 #include <unistd.h>
 
-#include "libft/libft.h"
 #include "ft_printf.h"
 #include "ft_printfparser.h"
 #include "ft_printfchars.h"
