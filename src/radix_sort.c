@@ -6,7 +6,7 @@
 /*   By: pnguyen- <pnguyen-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 09:47:41 by pnguyen-          #+#    #+#             */
-/*   Updated: 2023/12/13 16:28:31 by pnguyen-         ###   ########.fr       */
+/*   Updated: 2023/12/14 10:40:23 by pnguyen-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,48 @@ static void	bitshiftvalue(void *content)
 	*(int *)content >>= 1;
 }
 
+static int	cheapest_goto(t_list **stack_a, int index, int size_a)
+{
+	if (index <= size_a / 2)
+	{
+		while (index--)
+		{
+			bitshiftvalue((*stack_a)->content);
+			set_command(stack_a, NULL, "ra", 2);
+			size_a--;
+		}
+	}
+	else
+	{
+		while (index < size_a)
+		{
+			bitshiftvalue((*stack_a)->content);
+			set_command(stack_a, NULL, "rra", 3);
+			size_a--;
+		}
+	}
+	return (size_a);
+}
+
+static void	push_numbers(t_list **stack_a, t_list **stack_b, int size_a)
+{
+	while (size_a--)
+	{
+		if (!(*(int *)(*stack_a)->content & 1))
+		{
+			bitshiftvalue((*stack_a)->content);
+			set_command(stack_a, stack_b, "pb", 2);
+		}
+		else
+		{
+			bitshiftvalue((*stack_a)->content);
+			set_command(stack_a, NULL, "ra", 2);
+		}
+	}
+	while (*stack_b)
+		set_command(stack_a, stack_b, "pa", 2);
+}
+
 void	my_radix_sort(t_list **stack_a, int size_a)
 {
 	t_list	*stack_b;
@@ -55,39 +97,8 @@ void	my_radix_sort(t_list **stack_a, int size_a)
 			ft_lstiter(*stack_a, &bitshiftvalue);
 			continue ;
 		}
-		if (index <= size_a / 2)
-		{
-			while (index--)
-			{
-				bitshiftvalue((*stack_a)->content);
-				set_command(stack_a, &stack_b, "ra", 2);
-				size_a--;
-			}
-		}
-		else
-		{
-			while (index < size_a)
-			{
-				bitshiftvalue((*stack_a)->content);
-				set_command(stack_a, &stack_b, "rra", 3);
-				size_a--;
-			}
-		}
-		while (size_a--)
-		{
-			if (!(*(int *)(*stack_a)->content & 1))
-			{
-				bitshiftvalue((*stack_a)->content);
-				set_command(stack_a, &stack_b, "pb", 2);
-			}
-			else
-			{
-				bitshiftvalue((*stack_a)->content);
-				set_command(stack_a, &stack_b, "ra", 2);
-			}
-		}
-		while (stack_b)
-			set_command(stack_a, &stack_b, "pa", 2);
+		size_a = cheapest_goto(stack_a, index, size_a);
+		push_numbers(stack_a, &stack_b, size_a);
 		max >>= 1;
 	}
 	ft_lstclear(&stack_b, &free);
