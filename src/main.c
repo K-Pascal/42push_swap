@@ -6,7 +6,7 @@
 /*   By: pnguyen- <pnguyen-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 20:31:44 by pnguyen-          #+#    #+#             */
-/*   Updated: 2023/12/08 17:11:51 by pnguyen-         ###   ########.fr       */
+/*   Updated: 2023/12/13 10:43:05 by pnguyen-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@
 
 #include "ft_printf/ft_printf.h"
 #include "libft/libft.h"
+
 #include "inc/actions.h"
+#include "inc/parser.h"
+#include "inc/sorts.h"
 
 void	my_free_all(char **arr)
 {
