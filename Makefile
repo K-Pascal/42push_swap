@@ -4,7 +4,9 @@ FILES := main.c \
 		 parser.c \
 		 stack.c \
 		 sorts_utils.c \
-		 radix_sort.c
+		 radix_sort.c \
+		 small_sort.c \
+		 small_sort_utils.c
 
 SRCDIR := ./src
 SRC := $(addprefix $(SRCDIR)/,$(FILES))
