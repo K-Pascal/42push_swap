@@ -6,7 +6,7 @@
 /*   By: pnguyen- <pnguyen-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 17:23:52 by pnguyen-          #+#    #+#             */
-/*   Updated: 2023/11/12 18:19:48 by pnguyen-         ###   ########.fr       */
+/*   Updated: 2023/12/05 19:25:06 by pnguyen-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 void	ft_lstadd_front(t_list **lst, t_list *new)
 {
-	t_list	*first;
-
-	first = *lst;
-	new->next = first;
+	new->next = *lst;
 	*lst = new;
 }
