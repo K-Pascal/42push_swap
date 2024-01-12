@@ -6,7 +6,7 @@
 /*   By: pnguyen- <pnguyen-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 10:48:16 by pnguyen-          #+#    #+#             */
-/*   Updated: 2023/12/11 11:16:25 by pnguyen-         ###   ########.fr       */
+/*   Updated: 2023/12/21 14:09:11 by pnguyen-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	addto_stack(t_list **stack, void *content)
 	{
 		ft_lstclear(stack, &free);
 		free(content);
-		ft_putendl_fd("Allocation error in addto_stack() : t_lst*", 2);
+		ft_putendl_fd("Allocation error in addto_stack() : t_list*", 2);
 		return (0);
 	}
 	ft_lstadd_back(stack, elem);
