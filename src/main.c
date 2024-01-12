@@ -6,7 +6,7 @@
 /*   By: pnguyen- <pnguyen-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 20:31:44 by pnguyen-          #+#    #+#             */
-/*   Updated: 2023/12/03 22:13:06 by pnguyen-         ###   ########.fr       */
+/*   Updated: 2023/12/04 18:16:56 by pnguyen-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	swap_elem(t_list **lst)
 {
 	t_list	*first;
 
-	if (ft_lstsize(*lst) <= 1)
+	if (*lst == NULL || (*lst)->next == NULL)
 		return ;
 	first = (*lst)->next;
 	(*lst)->next = first->next;
@@ -42,15 +42,24 @@ void	rotate_elem(t_list **lst)
 	t_list	*first;
 	t_list	*last;
 
-	if (ft_lstsize(*lst) <= 1)
+	if (*lst == NULL || (*lst)->next == NULL)
 		return ;
-	first = (*lst)->next;
 	last = *lst;
-	while ((*lst)->next != NULL)
-		*lst = (*lst)->next;
-	(*lst)->next = last;
+	first = last->next;
 	last->next = NULL;
+	ft_lstlast(first)->next = last;
 	*lst = first;
+}
+
+void	reverse_rotate_elem(t_list **lst)
+{
+	int	len;
+
+	len = ft_lstsize(*lst);
+	if (len <= 1)
+		return ;
+	while (--len)
+		rotate_elem(lst);
 }
 
 void	print_elem(void *content)
@@ -58,39 +67,75 @@ void	print_elem(void *content)
 	ft_printf("%d\n", *(int *)content);
 }
 
+void	visualize(t_list *lst_a, t_list *lst_b)
+{
+	int	size_a;
+	int	size_b;
+
+	size_a = ft_lstsize(lst_a);
+	size_b = ft_lstsize(lst_b);
+	while (lst_a != NULL || lst_b != NULL)
+	{
+		if (size_a > size_b)
+		{
+			ft_printf("%d \n", *(int *)lst_a->content);
+			lst_a = lst_a->next;
+			size_a--;
+		}
+		else if (size_a < size_b)
+		{
+			ft_printf("  %d\n", *(int *)lst_b->content);
+			lst_b = lst_b->next;
+			size_b--;
+		}
+		else
+		{
+			ft_printf("%d %d\n", *(int *)lst_a->content, *(int *)lst_b->content);
+			lst_a = lst_a->next;
+			lst_b = lst_b->next;
+			size_a--;
+			size_b--;
+		}
+	}
+	ft_printf("_ _\na b\n\n");
+}
+
 int	main(int argc, char **argv)
 {
 	int		i;
 	int		*nb;
-	t_list	*lst_a;
-	t_list	*lst_b;
+	t_list	*lst_a = NULL;
+	t_list	*lst_b = NULL;
+	t_list	*elem;
 
 	i = 1;
 	while (i < argc)
 	{
 		nb = malloc(sizeof(int));
 		*nb = ft_atoi(argv[i]);
-		ft_lstadd_front(&lst_a, ft_lstnew(nb));
+		elem = ft_lstnew(nb);
+		ft_lstadd_front(&lst_a, elem);
+		ft_printf("[%s] ", argv[i]);
 		i++;
 	}
-	ft_lstiter(lst_a, &print_elem);
+	visualize(lst_a, lst_b);
 	ft_printf("sa :\n");
 	swap_elem(&lst_a);
-	ft_lstiter(lst_a, &print_elem);
-	ft_printf("\npb pb pb :\n");
+	visualize(lst_a, lst_b);
+	ft_printf("pb pb pb :\n");
 	push_elem(&lst_b, &lst_a);
 	push_elem(&lst_b, &lst_a);
 	push_elem(&lst_b, &lst_a);
-	ft_lstiter(lst_a, &print_elem);
-	ft_printf("\n");
-	ft_lstiter(lst_b, &print_elem);
-	ft_printf("\nra rb :\n");
+	visualize(lst_a, lst_b);
+	ft_printf("ra rb :\n");
 	rotate_elem(&lst_a);
 	rotate_elem(&lst_b);
-	ft_lstiter(lst_a, &print_elem);
-	ft_printf("\n");
-	ft_lstiter(lst_b, &print_elem);
-	ft_printf("\n");
+	visualize(lst_a, lst_b);
+	ft_printf("rra rrb :\n");
+	reverse_rotate_elem(&lst_a);
+	reverse_rotate_elem(&lst_b);
+	visualize(lst_a, lst_b);
+
 	ft_lstclear(&lst_a, &free);
 	ft_lstclear(&lst_b, &free);
 	return (0);
