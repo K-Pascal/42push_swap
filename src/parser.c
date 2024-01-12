@@ -6,7 +6,7 @@
 /*   By: pnguyen- <pnguyen-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 16:11:02 by pnguyen-          #+#    #+#             */
-/*   Updated: 2023/12/13 09:35:19 by pnguyen-         ###   ########.fr       */
+/*   Updated: 2023/12/21 13:56:02 by pnguyen-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,9 @@ static int	checkmaxint(char delim[], size_t lenmax, char str[])
 {
 	size_t	len;
 
-	len = ft_strlen(str);
+	len = 0;
+	while (ft_isdigit(str[len]))
+		len++;
 	if (len > lenmax)
 		return (0);
 	if (len == lenmax)
