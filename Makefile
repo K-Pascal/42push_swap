@@ -6,7 +6,8 @@ FILES := main.c \
 		 sorts_utils.c \
 		 radix_sort.c \
 		 small_sort.c \
-		 small_sort_utils.c
+		 small_sort_utils.c \
+		 ranks.c
 
 SRCDIR := ./src
 SRC := $(addprefix $(SRCDIR)/,$(FILES))
