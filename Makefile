@@ -1,6 +1,7 @@
 FILES := main.c \
 		 actions.c \
-		 parser.c
+		 parser.c \
+		 stack.c
 
 SRCDIR := ./src
 SRC := $(addprefix $(SRCDIR)/,$(FILES))

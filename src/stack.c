@@ -1,20 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   stack.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pnguyen- <pnguyen-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/08 16:34:32 by pnguyen-          #+#    #+#             */
-/*   Updated: 2023/12/11 11:15:18 by pnguyen-         ###   ########.fr       */
+/*   Created: 2023/12/11 10:48:16 by pnguyen-          #+#    #+#             */
+/*   Updated: 2023/12/11 11:16:25 by pnguyen-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#include <stdlib.h>
 
-# include "libft/libft.h"
+#include "libft/libft.h"
 
-t_list	*checkargs(char **argv, int start, int index);
+int	addto_stack(t_list **stack, void *content)
+{
+	t_list	*elem;
 
-#endif
+	elem = ft_lstnew(content);
+	if (!elem)
+	{
+		ft_lstclear(stack, &free);
+		free(content);
+		ft_putendl_fd("Allocation error in addto_stack() : t_lst*", 2);
+		return (0);
+	}
+	ft_lstadd_back(stack, elem);
+	return (1);
+}

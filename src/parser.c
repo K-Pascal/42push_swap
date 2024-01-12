@@ -6,7 +6,7 @@
 /*   By: pnguyen- <pnguyen-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 16:11:02 by pnguyen-          #+#    #+#             */
-/*   Updated: 2023/12/08 16:37:17 by pnguyen-         ###   ########.fr       */
+/*   Updated: 2023/12/11 11:15:53 by pnguyen-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,36 +14,46 @@
 #include <stdlib.h>
 
 #include "libft/libft.h"
+#include "stack.h"
 
 static int	isvalidnumber(char str[]);
 static int	checkmaxint(char delim[], size_t lenmax, char str[]);
 static int	isvalidint(char str[]);
-static int	checkduplicate(char **argv, int start, int index);
+static int	*checkduplicate(t_list *stack, char arg[]);
 
-int	checkargs(char **argv, int start, int size)
+t_list	*checkargs(char **argv, int start, int size)
 {
-	int	i;
+	t_list	*stack;
+	int		*nbr;
 
-	i = start;
-	while (i < size)
+	stack = NULL;
+	while (start < size)
 	{
-		if (!isvalidnumber(argv[i])
-			|| !isvalidint(argv[i])
-			|| checkduplicate(argv, start, i))
+		if (!isvalidnumber(argv[start]) || !isvalidint(argv[start]))
 		{
-			ft_putstr_fd("Error\n", 2);
-			return (0);
+			ft_putendl_fd("Error", 2);
+			ft_lstclear(&stack, &free);
+			return (NULL);
 		}
-		i++;
+		nbr = checkduplicate(stack, argv[start]);
+		if (!nbr)
+			return (NULL);
+		if (!addto_stack(&stack, nbr))
+			return (NULL);
+		start++;
 	}
-	return (1);
+	return (stack);
 }
 
 static int	isvalidnumber(char str[])
 {
+	while ((*str >= '\t' && *str <= '\r') || *str == ' ')
+		str++;
 	if (*str == '-' || *str == '+')
 		str++;
 	while (ft_isdigit(*str))
+		str++;
+	while ((*str >= '\t' && *str <= '\r') || *str == ' ')
 		str++;
 	return (*str == '\0');
 }
@@ -55,6 +65,8 @@ static int	isvalidint(char str[])
 	int		status;
 
 	sign = 0;
+	while ((*str >= '\t' && *str <= '\r') || *str == ' ')
+		str++;
 	if (*str == '-' || *str == '+')
 	{
 		if (*str == '-')
@@ -74,20 +86,31 @@ static int	isvalidint(char str[])
 	return (status);
 }
 
-static int	checkduplicate(char **argv, int start, int index)
+static int	*checkduplicate(t_list *stack, char arg[])
 {
-	int	i;
-	int	nbr;
+	int		nbr;
+	int		*narg;
 
-	i = start;
-	nbr = ft_atoi(argv[index]);
-	while (i < index)
+	nbr = ft_atoi(arg);
+	while (stack)
 	{
-		if (ft_atoi(argv[i]) == nbr)
-			return (1);
-		i++;
+		if (nbr == *(int *)stack->content)
+		{
+			ft_lstclear(&stack, &free);
+			ft_putendl_fd("Error", 2);
+			return (NULL);
+		}
+		stack = stack->next;
 	}
-	return (0);
+	narg = malloc(sizeof(int));
+	if (!narg)
+	{
+		ft_lstclear(&stack, &free);
+		ft_putendl_fd("Allocation error in checkduplicate() : int*", 2);
+		return (NULL);
+	}
+	*narg = nbr;
+	return (narg);
 }
 
 static int	checkmaxint(char delim[], size_t lenmax, char str[])
