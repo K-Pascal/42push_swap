@@ -6,7 +6,7 @@
 /*   By: pnguyen- <pnguyen-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 14:58:24 by pnguyen-          #+#    #+#             */
-/*   Updated: 2023/12/14 14:59:11 by pnguyen-         ###   ########.fr       */
+/*   Updated: 2023/12/21 13:53:03 by pnguyen-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 
 # include "libft/libft.h"
 
-void	pre_sort(t_list *stack, int size);
+int	pre_sort(t_list *stack, int size);
 
 #endif

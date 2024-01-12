@@ -6,7 +6,7 @@
 /*   By: pnguyen- <pnguyen-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 14:55:54 by pnguyen-          #+#    #+#             */
-/*   Updated: 2023/12/14 15:00:15 by pnguyen-         ###   ########.fr       */
+/*   Updated: 2023/12/21 13:52:51 by pnguyen-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 static void	init_ints(int *arr, int size);
 static void	set_ranks(int *pos, int size, t_list *stack);
 
-void	pre_sort(t_list *stack, int size)
+int	pre_sort(t_list *stack, int size)
 {
 	int		*pos;
 	int		i;
@@ -27,7 +27,7 @@ void	pre_sort(t_list *stack, int size)
 	if (!pos)
 	{
 		ft_putendl_fd("Allocation error in pre_sort() : int*", 2);
-		return ;
+		return (0);
 	}
 	init_ints(pos, size);
 	set_ranks(pos, size, stack);
@@ -38,6 +38,7 @@ void	pre_sort(t_list *stack, int size)
 		stack = stack->next;
 	}
 	free(pos);
+	return (1);
 }
 
 static void	init_ints(int *arr, int size)
