@@ -1,6 +1,5 @@
 FILES := main.c \
 		 actions.c \
-		 actions_utils.c \
 		 parser.c \
 		 stack.c \
 		 sorts_utils.c \
@@ -51,7 +50,6 @@ fclean: clean
 	make -C $(LIBFT_DIR) fclean
 
 re : fclean all
-	make -C $(LIBFT_DIR) re
 
 norm:
 	make -C $(LIBFT_DIR) norm

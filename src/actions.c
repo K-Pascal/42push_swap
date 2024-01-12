@@ -6,15 +6,13 @@
 /*   By: pnguyen- <pnguyen-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 13:39:06 by pnguyen-          #+#    #+#             */
-/*   Updated: 2023/12/13 16:27:40 by pnguyen-         ###   ########.fr       */
+/*   Updated: 2023/12/14 15:13:17 by pnguyen-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
 #include "libft/libft.h"
-
-#include "inc/actions_utils.h"
 
 static void	swap_elem(t_list **lst)
 {
@@ -66,28 +64,27 @@ static void	reverse_rotate_elem(t_list **lst)
 
 void	set_command(t_list **lst_a, t_list **lst_b, char cmd[], int len)
 {
-	len = ft_strlen(cmd);
-	if (!ft_strncmp(cmd, "ss", my_max(len, 2))
-		|| !ft_strncmp(cmd, "sa", my_max(len, 2)))
-		swap_elem(lst_a);
-	if (!ft_strncmp(cmd, "ss", my_max(len, 2))
-		|| !ft_strncmp(cmd, "sb", my_max(len, 2)))
-		swap_elem(lst_b);
-	if (!ft_strncmp(cmd, "pa", my_max(len, 2)))
-		push_elem(lst_a, lst_b);
-	if (!ft_strncmp(cmd, "pb", my_max(len, 2)))
-		push_elem(lst_b, lst_a);
-	if (!ft_strncmp(cmd, "rr", my_max(len, 2))
-		|| !ft_strncmp(cmd, "ra", my_max(len, 2)))
-		rotate_elem(lst_a);
-	if (!ft_strncmp(cmd, "rr", my_max(len, 2))
-		|| !ft_strncmp(cmd, "rb", my_max(len, 2)))
-		rotate_elem(lst_b);
-	if (!ft_strncmp(cmd, "rrr", my_max(len, 3))
-		|| !ft_strncmp(cmd, "rra", my_max(len, 3)))
-		reverse_rotate_elem(lst_a);
-	if (!ft_strncmp(cmd, "rrr", my_max(len, 3))
-		|| !ft_strncmp(cmd, "rrb", my_max(len, 3)))
-		reverse_rotate_elem(lst_b);
+	if (len == 2)
+	{
+		if (!ft_strncmp(cmd, "ss", 2) || !ft_strncmp(cmd, "sa", 2))
+			swap_elem(lst_a);
+		if (!ft_strncmp(cmd, "ss", 2) || !ft_strncmp(cmd, "sb", 2))
+			swap_elem(lst_b);
+		if (!ft_strncmp(cmd, "pa", 2))
+			push_elem(lst_a, lst_b);
+		if (!ft_strncmp(cmd, "pb", 2))
+			push_elem(lst_b, lst_a);
+		if (!ft_strncmp(cmd, "rr", 2) || !ft_strncmp(cmd, "ra", 2))
+			rotate_elem(lst_a);
+		if (!ft_strncmp(cmd, "rr", 2) || !ft_strncmp(cmd, "rb", 2))
+			rotate_elem(lst_b);
+	}
+	else
+	{
+		if (!ft_strncmp(cmd, "rrr", 3) || !ft_strncmp(cmd, "rra", 3))
+			reverse_rotate_elem(lst_a);
+		if (!ft_strncmp(cmd, "rrr", 3) || !ft_strncmp(cmd, "rrb", 3))
+			reverse_rotate_elem(lst_b);
+	}
 	ft_putendl_fd(cmd, 1);
 }
