@@ -6,13 +6,15 @@
 /*   By: pnguyen- <pnguyen-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 13:39:06 by pnguyen-          #+#    #+#             */
-/*   Updated: 2023/12/08 16:09:36 by pnguyen-         ###   ########.fr       */
+/*   Updated: 2023/12/13 16:27:40 by pnguyen-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
 #include "libft/libft.h"
+
+#include "inc/actions_utils.h"
 
 static void	swap_elem(t_list **lst)
 {
@@ -62,26 +64,30 @@ static void	reverse_rotate_elem(t_list **lst)
 		rotate_elem(lst);
 }
 
-void	set_command(t_list **lst_a, t_list **lst_b, char cmd[])
+void	set_command(t_list **lst_a, t_list **lst_b, char cmd[], int len)
 {
-	int	len;
-
 	len = ft_strlen(cmd);
-	if (!ft_strncmp(cmd, "ss", len) || !ft_strncmp(cmd, "sa", len))
+	if (!ft_strncmp(cmd, "ss", my_max(len, 2))
+		|| !ft_strncmp(cmd, "sa", my_max(len, 2)))
 		swap_elem(lst_a);
-	if (!ft_strncmp(cmd, "ss", len) || !ft_strncmp(cmd, "sb", len))
+	if (!ft_strncmp(cmd, "ss", my_max(len, 2))
+		|| !ft_strncmp(cmd, "sb", my_max(len, 2)))
 		swap_elem(lst_b);
-	if (!ft_strncmp(cmd, "pa", len))
+	if (!ft_strncmp(cmd, "pa", my_max(len, 2)))
 		push_elem(lst_a, lst_b);
-	if (!ft_strncmp(cmd, "pb", len))
+	if (!ft_strncmp(cmd, "pb", my_max(len, 2)))
 		push_elem(lst_b, lst_a);
-	if (!ft_strncmp(cmd, "rr", len) || !ft_strncmp(cmd, "ra", len))
+	if (!ft_strncmp(cmd, "rr", my_max(len, 2))
+		|| !ft_strncmp(cmd, "ra", my_max(len, 2)))
 		rotate_elem(lst_a);
-	if (!ft_strncmp(cmd, "rr", len) || !ft_strncmp(cmd, "rb", len))
+	if (!ft_strncmp(cmd, "rr", my_max(len, 2))
+		|| !ft_strncmp(cmd, "rb", my_max(len, 2)))
 		rotate_elem(lst_b);
-	if (!ft_strncmp(cmd, "rrr", len) || !ft_strncmp(cmd, "rra", len))
+	if (!ft_strncmp(cmd, "rrr", my_max(len, 3))
+		|| !ft_strncmp(cmd, "rra", my_max(len, 3)))
 		reverse_rotate_elem(lst_a);
-	if (!ft_strncmp(cmd, "rrr", len) || !ft_strncmp(cmd, "rrb", len))
+	if (!ft_strncmp(cmd, "rrr", my_max(len, 3))
+		|| !ft_strncmp(cmd, "rrb", my_max(len, 3)))
 		reverse_rotate_elem(lst_b);
 	ft_putendl_fd(cmd, 1);
 }

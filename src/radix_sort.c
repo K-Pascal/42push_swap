@@ -6,7 +6,7 @@
 /*   By: pnguyen- <pnguyen-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 09:47:41 by pnguyen-          #+#    #+#             */
-/*   Updated: 2023/12/13 10:00:43 by pnguyen-         ###   ########.fr       */
+/*   Updated: 2023/12/13 16:28:31 by pnguyen-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	my_radix_sort(t_list **stack_a, int size_a)
 			while (index--)
 			{
 				bitshiftvalue((*stack_a)->content);
-				set_command(stack_a, &stack_b, "ra");
+				set_command(stack_a, &stack_b, "ra", 2);
 				size_a--;
 			}
 		}
@@ -69,7 +69,7 @@ void	my_radix_sort(t_list **stack_a, int size_a)
 			while (index < size_a)
 			{
 				bitshiftvalue((*stack_a)->content);
-				set_command(stack_a, &stack_b, "rra");
+				set_command(stack_a, &stack_b, "rra", 3);
 				size_a--;
 			}
 		}
@@ -78,16 +78,16 @@ void	my_radix_sort(t_list **stack_a, int size_a)
 			if (!(*(int *)(*stack_a)->content & 1))
 			{
 				bitshiftvalue((*stack_a)->content);
-				set_command(stack_a, &stack_b, "pb");
+				set_command(stack_a, &stack_b, "pb", 2);
 			}
 			else
 			{
 				bitshiftvalue((*stack_a)->content);
-				set_command(stack_a, &stack_b, "ra");
+				set_command(stack_a, &stack_b, "ra", 2);
 			}
 		}
 		while (stack_b)
-			set_command(stack_a, &stack_b, "pa");
+			set_command(stack_a, &stack_b, "pa", 2);
 		max >>= 1;
 	}
 	ft_lstclear(&stack_b, &free);
