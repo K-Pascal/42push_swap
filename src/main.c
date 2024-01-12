@@ -28,66 +28,94 @@ void	my_free_all(char **arr)
 	free(arr);
 }
 
-int	findmin(t_list *lst)
-{
-	int	min;
-	int	i;
-	int	index;
+//void	my_selection_sort(t_list **stack_a, int size_a)
+//{
+//	t_list	*stack_b;
+//	t_info	min;
+//
+//	stack_b = NULL;
+//	while (*stack_a)
+//	{
+//		min = findmin(*stack_a);
+//		if (min.index <= size_a / 2)
+//		{
+//			while (min.index-- > 0)
+//				set_command(stack_a, &stack_b, "ra");
+//		}
+//		else
+//		{
+//			while (min.index++ < size_a)
+//				set_command(stack_a, &stack_b, "rra");
+//		}
+//		size_a--;
+//		set_command(stack_a, &stack_b, "pb");
+//	}
+//	while (stack_b)
+//		set_command(stack_a, &stack_b, "pa");
+//	ft_lstclear(&stack_b, &free);
+//}
 
-	min = INT_MAX;
+void	init_ints(int *arr, int size)
+{
+	int	i;
+
 	i = 0;
-	index = i;
-	while (lst)
+	while (i < size)
 	{
-		if (*(int *)lst->content <= min)
-		{
-			min = *(int *)lst->content;
-			index = i;
-		}
-		lst = lst->next;
+		arr[i] = -1;
 		i++;
 	}
-	return (index);
 }
 
-int	findmax(t_list *lst)
+void	set_ranks(int *pos, int size, t_list *stack)
 {
-	int	max;
-	int	i;
-	int	index;
+	int		rank;
+	int		min;
+	int		i;
+	int		index;
+	t_list	*elem;
 
-	max = INT_MIN;
-	i = 0;
-	index = i;
-	while (lst)
+	rank = 0;
+	while (size--)
 	{
-		if (*(int *)lst->content >= max)
+		i = 0;
+		index = 0;
+		min = INT_MAX;
+		elem = stack;
+		while (elem)
 		{
-			max = *(int *)lst->content;
-			index = i;
+			if (pos[i] == -1 && *(int *)elem->content <= min)
+			{
+				min = *(int *)elem->content;
+				index = i;
+			}
+			i++;
+			elem = elem->next;
 		}
-		lst = lst->next;
-		i++;
+		pos[index] = rank++;
 	}
-	return (index);
 }
 
-int	isascending(t_list *lst)
+void	pre_sort(t_list *stack, int size)
 {
-	int	nbr;
+	int		*pos;
+	int		i;
 
-	if (!lst || !lst->next)
-		return (1);
-	while (lst->next)
+	pos = malloc(size * sizeof(int));
+	if (!pos)
 	{
-		nbr = *(int *)lst->content;
-		if (nbr > *(int *)lst->next->content)
-			nbr = *(int *)lst->next->content;
-		else
-			return (0);
-		lst = lst->next;
+		ft_putendl_fd("Allocation error in pre_sort() : int*", 2);
+		return ;
 	}
-	return (1);
+	init_ints(pos, size);
+	set_ranks(pos, size, stack);
+	i = 0;
+	while (stack)
+	{
+		*(int *)stack->content = pos[i++];
+		stack = stack->next;
+	}
+	free(pos);
 }
 
 int	dothing(char **argv, int size)
