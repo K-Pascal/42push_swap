@@ -6,7 +6,7 @@
 /*   By: pnguyen- <pnguyen-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 13:41:54 by pnguyen-          #+#    #+#             */
-/*   Updated: 2023/12/05 14:14:38 by pnguyen-         ###   ########.fr       */
+/*   Updated: 2023/12/08 16:36:28 by pnguyen-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 
 # include "libft/libft.h"
 
-void	swap_elem(t_list **lst);
-void	push_elem(t_list **lst_dst, t_list **lst_target);
-void	rotate_elem(t_list **lst);
-void	reverse_rotate_elem(t_list **lst);
+void	set_command(t_list **lst_a, t_list **lst_b, char cmd[]);
 
 #endif
