@@ -1,7 +1,9 @@
 FILES := main.c \
 		 actions.c \
 		 parser.c \
-		 stack.c
+		 stack.c \
+		 sorts_utils.c \
+		 radix_sort.c
 
 SRCDIR := ./src
 SRC := $(addprefix $(SRCDIR)/,$(FILES))
@@ -39,6 +41,9 @@ $(LIBFTPRINTF_DIR)/lib$(NAMELIBFTPRINTF).a:
 $(BUILDDIR)/%.o: $(SRCDIR)/%.c Makefile
 	@mkdir -p $(BUILDDIR)
 	$(CC) $(CFLAGS) $(GDB) -c $< -o $@
+
+test: $(NAME)
+	cp $(NAME) ./push_swap_visualizer/build/bin/$(NAME)
 
 .PHONY: clean fclean re norm
 clean:
